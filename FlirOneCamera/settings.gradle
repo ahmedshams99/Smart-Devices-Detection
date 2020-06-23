@@ -1,0 +1,6 @@
+include ':androidsdk-release'
+include ':thermalsdk-release'
+include ':app'
+rootProject.name='FlirOneCamera'
+
+include ':java'
