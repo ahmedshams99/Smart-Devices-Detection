@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.flir.thermalsdk.androidsdk.image.BitmapAndroid;
+import com.flir.thermalsdk.androidsdk.live.connectivity.UsbPermissionHandler;
 import com.flir.thermalsdk.image.ThermalImage;
 import com.flir.thermalsdk.image.fusion.FusionMode;
 import com.flir.thermalsdk.live.Camera;
@@ -29,6 +30,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import com.samples.flironecamera.MainActivity;
 
 /**
  * Encapsulates the handling of a FLIR ONE camera or built in emulator, discovery, connecting and start receiving images.
@@ -51,12 +53,12 @@ import java.util.List;
  * <p/>
  * Please note, this is <b>NOT</b> production quality code, error handling has been kept to a minimum to keep the code as clear and concise as possible
  */
-class CameraHandler {
+public class CameraHandler {
 
     private static final String TAG = "CameraHandler";
 
     private StreamDataListener streamDataListener;
-
+    MainActivity main=null;
     public interface StreamDataListener {
         void images(FrameDataHolder dataHolder);
         void images(Bitmap msxBitmap, Bitmap dcBitmap);
@@ -81,6 +83,7 @@ class CameraHandler {
      * Start discovery of USB and Emulators
      */
     public void startDiscovery(DiscoveryEventListener cameraDiscoveryListener, DiscoveryStatus discoveryStatus) {
+        this.main = main;
         DiscoveryFactory.getInstance().scan(cameraDiscoveryListener, CommunicationInterface.EMULATOR, CommunicationInterface.USB);
         discoveryStatus.started();
     }
@@ -126,9 +129,7 @@ class CameraHandler {
     /**
      * Add a found camera to the list of known cameras
      */
-    public void add(Identity identity) {
-        foundCameraIdentities.add(identity);
-    }
+    public void add(Identity identity) { foundCameraIdentities.add(identity); }
 
     @Nullable
     public Identity get(int i) {
@@ -148,26 +149,6 @@ class CameraHandler {
      */
     public void clear() {
         foundCameraIdentities.clear();
-    }
-
-    @Nullable
-    public Identity getCppEmulator() {
-        for (Identity foundCameraIdentity : foundCameraIdentities) {
-            if (foundCameraIdentity.deviceId.contains("C++ Emulator")) {
-                return foundCameraIdentity;
-            }
-        }
-        return null;
-    }
-
-    @Nullable
-    public Identity getFlirOneEmulator() {
-        for (Identity foundCameraIdentity : foundCameraIdentities) {
-            if (foundCameraIdentity.deviceId.contains("EMULATED FLIR ONE")) {
-                return foundCameraIdentity;
-            }
-        }
-        return null;
     }
 
     @Nullable
@@ -224,6 +205,5 @@ class CameraHandler {
             streamDataListener.images(msxBitmap,dcBitmap);
         }
     };
-
 
 }

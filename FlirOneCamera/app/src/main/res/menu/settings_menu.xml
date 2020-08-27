@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/itemLog"
+        android:title="Log"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_baseline_done"
+        />
+    <item android:id="@+id/itemS"
+        android:title="Panic Mode"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_warning"
+        />
+    <item android:id="@+id/item0"
+        android:title="test"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_icon"
+        >
+        <menu>
+            <item android:id="@+id/itemConnect"
+                android:title="Connect"
+                app:showAsAction="never"></item>
+            <item android:id="@+id/itemDisconnect"
+                android:title="Disconnect"
+                app:showAsAction="never"></item>
+            <item android:id="@+id/item1"
+                android:title="Bounding Box"
+                android:checkable="true"
+                app:showAsAction="never"></item>
+            <item android:id="@+id/item2"
+                android:title="Label"
+                android:checkable="true"
+                app:showAsAction="never"></item>
+            <item android:id="@+id/item3"
+                android:title="Sphere"
+                android:checkable="true"
+                app:showAsAction="never"></item>
+            <item android:id="@+id/item4"
+                android:title="Shapes"
+                android:checkable="true"
+                app:showAsAction="never"></item>
+            <item android:id="@+id/item5"
+                android:title="Segmentation"
+                android:checkable="true"
+                app:showAsAction="never"></item>
+        </menu>
+    </item>
+
+</menu>
